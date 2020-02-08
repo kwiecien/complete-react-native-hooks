@@ -5,14 +5,15 @@ import ColorCounter from "../components/ColorCounter";
 const COLOR_INCREMENT = 30;
 
 const reducer = (state, action) => {
-    const { colorToChange, amount} = action;
-    switch (colorToChange) {
-        case 'red':
-        case 'green':
-        case 'blue':
+    const { type, payload} = action;
+    switch (type) {
+        case 'change_red':
+        case 'change_green':
+        case 'change_blue':
+            const color = type.substr(7);
             return {
                 ...state,
-                [colorToChange]: normalizeColor(state[colorToChange], amount),
+                [color]: normalizeColor(state[color], payload),
             };
         default:
             return state;
@@ -38,8 +39,8 @@ const SquareScreen = () => {
     function getColorCounter(color) {
         return <ColorCounter
             color={color}
-            onIncrease={() => dispatch({ colorToChange: color, amount: COLOR_INCREMENT})}
-            onDecrease={() => dispatch({ colorToChange: color, amount: -COLOR_INCREMENT})}
+            onIncrease={() => dispatch({ type: `change_${color}`, payload: COLOR_INCREMENT})}
+            onDecrease={() => dispatch({ type: `change_${color}`, payload: -COLOR_INCREMENT})}
         />;
     }
 };
