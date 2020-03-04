@@ -18,6 +18,7 @@ const HomeScreen = ({navigation}) => {
         {getButton('Color')}
         {getButton('Square')}
         {getButton('Text')}
+        {getButton('Box')}
     </View>;
 };
 
